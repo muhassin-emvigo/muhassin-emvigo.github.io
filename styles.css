@@ -175,7 +175,6 @@ a:hover { color: var(--text); }
   display: flex; align-items: center; gap: 0.6rem;
 }
 .section__title--center { justify-content: center; }
-.section__num { color: var(--accent); font-family: var(--mono); font-size: 1.15rem; }
 .section__icon {
   display: inline-grid; place-items: center; width: 36px; height: 36px;
   border-radius: 10px; background: var(--accent-soft); color: var(--accent); flex: none;
