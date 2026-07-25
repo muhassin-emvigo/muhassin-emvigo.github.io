@@ -127,3 +127,37 @@
 
   sections.forEach(function (s) { observer.observe(s); });
 })();
+
+// ===== Staggered card reveal =====
+(function () {
+  const groups = document.querySelectorAll(".timeline, .projects");
+  if (!groups.length) return;
+
+  const items = [];
+  groups.forEach(function (group) {
+    const cards = group.querySelectorAll(".timeline__item, .project");
+    cards.forEach(function (card, i) {
+      card.setAttribute("data-animate", "");
+      card.style.transitionDelay = Math.min(i * 80, 400) + "ms";
+      items.push(card);
+    });
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    items.forEach(function (c) { c.classList.add("is-visible"); });
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+  items.forEach(function (c) { observer.observe(c); });
+})();
