@@ -20,8 +20,15 @@ in a browser or host it anywhere static files are served.
 ```
 index.html    # Page content and sections
 styles.css    # All styling and theming (CSS variables)
-script.js     # Theme toggle, mobile menu, scroll reveal
+script.js     # Theme toggle, mobile menu, scroll reveal, back-to-top
+avatar.png    # Profile photo
+resume.pdf    # Downloadable résumé
+og-image.png  # Social-share preview image (Open Graph / Twitter)
+sitemap.xml   # SEO sitemap
+robots.txt    # Crawler directives
 ```
+
+**Live at:** https://muhassin-emvigo.github.io/
 
 ## 🖊️ How to customize
 

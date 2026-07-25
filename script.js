@@ -40,6 +40,18 @@
   });
 })();
 
+// ===== Back to top =====
+(function () {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+  window.addEventListener("scroll", function () {
+    btn.classList.toggle("is-visible", window.scrollY > 500);
+  }, { passive: true });
+  btn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
 // ===== Scroll reveal =====
 (function () {
   const sections = document.querySelectorAll(".section");
