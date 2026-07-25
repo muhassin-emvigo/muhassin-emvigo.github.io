@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhassin Babu — Software Engineer</title>
+  <meta name="description" content="Personal profile and resume of Muhassin Babu, Software Engineer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>" />
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#hero" class="nav__brand">MB</a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme" title="Toggle theme">
+        <span class="theme-toggle__icon">🌙</span>
+      </button>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="hero">
+      <div class="container hero__inner">
+        <div class="hero__avatar" aria-hidden="true">MB</div>
+        <p class="hero__eyebrow">Hi, my name is</p>
+        <h1 class="hero__name">Muhassin Babu</h1>
+        <h2 class="hero__title">Software Engineer</h2>
+        <p class="hero__tagline">
+          I build reliable, well-crafted software — from clean back-end services
+          to polished user experiences. Currently working at Emvigo Technologies.
+        </p>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary">Get in touch</a>
+          <a href="resume.pdf" class="btn btn--ghost" download>Download résumé</a>
+        </div>
+        <div class="hero__socials">
+          <a href="https://github.com/muhassin-emvigo" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+          <a href="mailto:muhassin.babu@emvigotech.com" aria-label="Email">Email</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">01.</span> About Me</h2>
+        <div class="about">
+          <div class="about__text">
+            <p>
+              Hello! I'm a software engineer who enjoys turning ideas into
+              functional, maintainable products. I care about writing clean code,
+              understanding the problem before the solution, and shipping work I'm
+              proud of.
+            </p>
+            <p>
+              Over the years I've worked across the stack — designing APIs,
+              building front-end interfaces, and everything in between. I'm always
+              learning and enjoy collaborating with people who take craft seriously.
+            </p>
+            <p>Here are a few technologies I've been working with recently:</p>
+            <ul class="about__list">
+              <li>JavaScript &amp; TypeScript</li>
+              <li>Node.js</li>
+              <li>React</li>
+              <li>Python</li>
+              <li>SQL / PostgreSQL</li>
+              <li>Docker &amp; CI/CD</li>
+            </ul>
+          </div>
+          <div class="about__stats">
+            <div class="stat">
+              <span class="stat__num">3+</span>
+              <span class="stat__label">Years experience</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">20+</span>
+              <span class="stat__label">Projects shipped</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">∞</span>
+              <span class="stat__label">Cups of coffee</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">02.</span> Experience</h2>
+        <div class="timeline">
+          <article class="timeline__item">
+            <div class="timeline__marker"></div>
+            <div class="timeline__content">
+              <h3 class="timeline__role">Software Engineer <span class="timeline__at">@ Emvigo Technologies</span></h3>
+              <p class="timeline__meta">Present</p>
+              <ul>
+                <li>Develop and maintain features across web applications used by clients.</li>
+                <li>Collaborate with cross-functional teams to deliver high-quality software.</li>
+                <li>Write tests and participate in code reviews to keep the codebase healthy.</li>
+              </ul>
+              <div class="tags">
+                <span>JavaScript</span><span>Node.js</span><span>React</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline__item">
+            <div class="timeline__marker"></div>
+            <div class="timeline__content">
+              <h3 class="timeline__role">Junior Developer <span class="timeline__at">@ Previous Company</span></h3>
+              <p class="timeline__meta">Earlier</p>
+              <ul>
+                <li>Contributed to building and shipping product features.</li>
+                <li>Fixed bugs and improved application performance.</li>
+                <li>Learned engineering best practices in a team environment.</li>
+              </ul>
+              <div class="tags">
+                <span>Python</span><span>SQL</span><span>REST APIs</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">03.</span> Skills</h2>
+        <div class="skills">
+          <div class="skills__group">
+            <h3>Languages</h3>
+            <ul>
+              <li>JavaScript / TypeScript</li>
+              <li>Python</li>
+              <li>SQL</li>
+              <li>HTML &amp; CSS</li>
+            </ul>
+          </div>
+          <div class="skills__group">
+            <h3>Frameworks &amp; Libraries</h3>
+            <ul>
+              <li>React</li>
+              <li>Node.js / Express</li>
+              <li>Next.js</li>
+              <li>Jest / Testing</li>
+            </ul>
+          </div>
+          <div class="skills__group">
+            <h3>Tools &amp; Platforms</h3>
+            <ul>
+              <li>Git &amp; GitHub</li>
+              <li>Docker</li>
+              <li>PostgreSQL / MongoDB</li>
+              <li>CI/CD pipelines</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section section--alt">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">04.</span> Featured Projects</h2>
+        <div class="projects">
+          <article class="project">
+            <div class="project__top">
+              <span class="project__folder" aria-hidden="true">📁</span>
+              <div class="project__links">
+                <a href="#" aria-label="GitHub repository">Code</a>
+                <a href="#" aria-label="Live demo">Live</a>
+              </div>
+            </div>
+            <h3 class="project__title">Project One</h3>
+            <p class="project__desc">
+              A short description of a project you're proud of. Explain what problem
+              it solves and what makes it interesting.
+            </p>
+            <div class="tags">
+              <span>React</span><span>Node.js</span><span>PostgreSQL</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__top">
+              <span class="project__folder" aria-hidden="true">📁</span>
+              <div class="project__links">
+                <a href="#" aria-label="GitHub repository">Code</a>
+                <a href="#" aria-label="Live demo">Live</a>
+              </div>
+            </div>
+            <h3 class="project__title">Project Two</h3>
+            <p class="project__desc">
+              Another project highlight. Describe the technology used and the impact
+              or result of the work.
+            </p>
+            <div class="tags">
+              <span>TypeScript</span><span>Next.js</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project__top">
+              <span class="project__folder" aria-hidden="true">📁</span>
+              <div class="project__links">
+                <a href="#" aria-label="GitHub repository">Code</a>
+                <a href="#" aria-label="Live demo">Live</a>
+              </div>
+            </div>
+            <h3 class="project__title">Project Three</h3>
+            <p class="project__desc">
+              A third project. Keep descriptions concise and focused on outcomes and
+              the skills you demonstrated.
+            </p>
+            <div class="tags">
+              <span>Python</span><span>Docker</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+      <div class="container">
+        <h2 class="section__title"><span class="section__num">05.</span> Education</h2>
+        <div class="timeline">
+          <article class="timeline__item">
+            <div class="timeline__marker"></div>
+            <div class="timeline__content">
+              <h3 class="timeline__role">Bachelor's Degree <span class="timeline__at">@ Your University</span></h3>
+              <p class="timeline__meta">Graduation Year</p>
+              <ul>
+                <li>Relevant coursework, achievements, or honors.</li>
+                <li>Activities, clubs, or notable projects.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section section--alt">
+      <div class="container contact">
+        <h2 class="section__title section__title--center"><span class="section__num">06.</span> Get In Touch</h2>
+        <p class="contact__text">
+          I'm always open to discussing new opportunities, interesting projects, or
+          just having a chat. Feel free to reach out and I'll get back to you.
+        </p>
+        <a href="mailto:muhassin.babu@emvigotech.com" class="btn btn--primary">Say hello</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>Built by Muhassin Babu</p>
+      <div class="footer__socials">
+        <a href="https://github.com/muhassin-emvigo" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:muhassin.babu@emvigotech.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
