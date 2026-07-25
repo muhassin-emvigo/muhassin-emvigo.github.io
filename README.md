@@ -1,4 +1,6 @@
-# Muhassin Babu — Public Profile & Résumé
+# Muhassin Babu MM — Public Profile & Résumé
+
+> Technology Architect · Agentic Workflows · Node.js · Ex-Infosys
 
 A clean, responsive, single-page personal profile / résumé website. Built with
 plain HTML, CSS, and JavaScript — no build step, no dependencies. Just open it
