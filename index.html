@@ -28,6 +28,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%2310b981'/><text x='32' y='45' font-size='32' font-family='Arial,Helvetica,sans-serif' font-weight='bold' fill='white' text-anchor='middle'>MB</text></svg>" />
 </head>
 <body>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
   <!-- Navigation -->
   <header class="nav" id="nav">
     <div class="container nav__inner">
@@ -52,6 +54,10 @@
   <main>
     <!-- Hero -->
     <section id="hero" class="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <span class="blob blob--1"></span>
+        <span class="blob blob--2"></span>
+      </div>
       <div class="container hero__inner">
         <img class="hero__avatar" src="avatar.png" alt="Portrait of Muhassin Babu MM" width="120" height="120" />
         <p class="hero__eyebrow">Hi, my name is</p>
@@ -111,11 +117,11 @@
           </div>
           <div class="about__stats">
             <div class="stat">
-              <span class="stat__num">11+</span>
+              <span class="stat__num" data-count="11" data-suffix="+">11+</span>
               <span class="stat__label">Years experience</span>
             </div>
             <div class="stat">
-              <span class="stat__num">6</span>
+              <span class="stat__num" data-count="6">6</span>
               <span class="stat__label">Companies</span>
             </div>
             <div class="stat">
