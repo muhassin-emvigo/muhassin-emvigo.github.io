@@ -106,10 +106,9 @@ a:hover { color: var(--text); }
 }
 .hero__inner { padding: 3rem 1.5rem; max-width: 780px; }
 .hero__avatar {
-  width: 84px; height: 84px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #8a5bff);
-  color: #fff; font-weight: 800; font-size: 1.75rem;
-  display: grid; place-items: center; margin-bottom: 1.5rem;
+  width: 120px; height: 120px; border-radius: 50%;
+  object-fit: cover; display: block; margin-bottom: 1.5rem;
+  border: 3px solid var(--accent-soft);
   box-shadow: var(--shadow);
 }
 .hero__eyebrow { color: var(--accent); font-family: var(--mono); font-size: 0.95rem; margin-bottom: 0.5rem; }
