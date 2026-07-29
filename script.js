@@ -93,17 +93,61 @@
   let raf = requestAnimationFrame(draw);
 })();
 
-// ===== Hero parallax =====
+// ===== Cinema: pinned scroll-scrubbed scenes =====
 (function () {
-  const inner = document.querySelector(".hero__inner");
-  if (!inner || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  window.addEventListener("scroll", function () {
-    const y = window.scrollY;
-    if (y < window.innerHeight) {
-      inner.style.transform = "translateY(" + y * 0.28 + "px)";
-      inner.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.75)));
+  const cinema = document.getElementById("hero");
+  if (!cinema || !cinema.classList.contains("cinema")) return;
+  const layers = Array.prototype.slice.call(cinema.querySelectorAll(".cinema__layer"));
+  const cue = document.getElementById("cinema-cue");
+  const vig = cinema.querySelector(".cinema__vignette");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finalIdx = layers.length - 1;
+
+  function smoothstep(a, b, x) {
+    const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  }
+  function bump(x, c, w) {
+    const rise = smoothstep(c - w, c - w * 0.35, x);
+    const fall = 1 - smoothstep(c + w * 0.35, c + w, x);
+    return Math.min(rise, fall);
+  }
+
+  if (reduce) {
+    layers.forEach(function (l, i) {
+      l.style.opacity = i === finalIdx ? "1" : "0";
+      l.style.pointerEvents = i === finalIdx ? "auto" : "none";
+    });
+    if (cue) cue.style.opacity = "0";
+    if (window.__setScrub) window.__setScrub(0.5);
+    return;
+  }
+
+  const centers = [0.06, 0.32, 0.56];
+  const W = 0.17;
+
+  function update() {
+    const rect = cinema.getBoundingClientRect();
+    const total = cinema.offsetHeight - window.innerHeight;
+    const p = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0;
+    if (window.__setScrub) window.__setScrub(p);
+
+    for (let i = 0; i < layers.length; i++) {
+      let o;
+      if (i === finalIdx) o = smoothstep(0.66, 0.86, p);
+      else o = bump(p, centers[i], W);
+      const l = layers[i];
+      l.style.opacity = o.toFixed(3);
+      l.style.transform = "translateY(" + ((1 - o) * 22).toFixed(1) + "px)";
+      l.style.pointerEvents = (i === finalIdx && o > 0.5) ? "auto" : "none";
     }
-  }, { passive: true });
+    if (cue) cue.style.opacity = Math.max(0, 1 - p * 4).toFixed(3);
+    if (vig) vig.style.opacity = (0.5 + p * 0.5).toFixed(3);
+  }
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 })();
 
 // ===== Mobile menu =====

@@ -76,23 +76,40 @@ if (mount) {
       my = (e.clientY / window.innerHeight - 0.5);
     }, { passive: true });
 
-    let t = 0;
-    function animate() {
-      t += 0.005;
-      group.rotation.y += 0.0018;
+    // scroll-scrub progress (0..1), driven by the cinema controller
+    let scrub = 0, scrubTarget = 0, baseSpin = 0, t = 0;
+    window.__setScrub = function (p) {
+      scrubTarget = Math.max(0, Math.min(1, p));
+      if (reduce) { scrub = scrubTarget; render(); }
+    };
+
+    function render() {
+      // ease scrub toward target for buttery transitions
+      scrub += (scrubTarget - scrub) * 0.08;
+      baseSpin += 0.0016;
+      // camera dolly: far -> immersive close as you scroll
+      camera.position.z = 4.6 - scrub * 2.0;
+      // extra scrubbed spin layered on the idle spin
+      group.rotation.y = baseSpin + scrub * Math.PI * 1.4 + mx * 0.35;
+      const tiltX = my * 0.3 + scrub * 0.22;
+      group.rotation.x += (tiltX - group.rotation.x) * 0.06;
+      group.scale.setScalar(1 + Math.sin(t) * 0.015 + scrub * 0.1);
       core.rotation.y -= 0.0032;
       core.rotation.x += 0.0012;
-      // gentle tilt toward pointer
-      const targetX = my * 0.35;
-      const targetY = group.rotation.y + mx * 0.0025;
-      group.rotation.x += (targetX - group.rotation.x) * 0.05;
-      group.rotation.y = targetY;
-      group.scale.setScalar(1 + Math.sin(t) * 0.015);
+      mat.size = 0.02 + scrub * 0.02;
+      // dim the particles as we settle into the identity scene
+      mat.opacity = 0.9 - scrub * 0.5;
+      core.material.opacity = 0.12 + scrub * 0.16;
       renderer.render(scene, camera);
-      if (!reduce) requestAnimationFrame(animate);
     }
-    animate();
-    if (reduce) renderer.render(scene, camera);
+
+    function animate() {
+      t += 0.005;
+      render();
+      requestAnimationFrame(animate);
+    }
+    if (reduce) { scrub = scrubTarget = 0.5; render(); }
+    else animate();
   } catch (err) {
     // WebGL unavailable — fail silently, rest of the page is unaffected
     mount.style.display = "none";

@@ -52,34 +52,65 @@
   </header>
 
   <main>
-    <!-- Hero -->
-    <section id="hero" class="hero">
-      <canvas id="scene" class="hero__scene" aria-hidden="true"></canvas>
-      <div class="container hero__inner">
-        <img class="hero__avatar" src="avatar.png" alt="Portrait of Muhassin Babu MM" width="120" height="120" />
-        <p class="hero__eyebrow">Hi, my name is</p>
-        <h1 class="hero__name">Muhassin Babu MM</h1>
-        <h2 class="hero__title">Technology Architect</h2>
-        <p class="hero__tagline">
-          Technology Architect &amp; Team Lead with 11+ years of experience designing
-          and delivering scalable, cloud-native solutions — with a focus on agentic
-          workflows and Node.js. Based in Kerala, India, currently at Emvigo
-          Technologies.
-        </p>
-        <div class="hero__cta">
-          <a href="#contact" class="btn btn--primary">Get in touch</a>
-          <a href="resume.pdf" class="btn btn--ghost" target="_blank" rel="noopener">Download résumé</a>
+    <!-- Hero: pinned scroll-scrubbed cinematic sequence -->
+    <section id="hero" class="cinema">
+      <div class="cinema__stage">
+        <canvas id="scene" class="cinema__canvas" aria-hidden="true"></canvas>
+        <div class="cinema__vignette" aria-hidden="true"></div>
+
+        <!-- Scene 1 -->
+        <div class="cinema__layer" data-layer="0">
+          <div class="cinema__inner">
+            <p class="hero__eyebrow">Technology Architect</p>
+            <h2 class="cinema__headline">Engineering<br>Intelligent Systems</h2>
+          </div>
         </div>
-        <div class="hero__socials">
-          <a href="https://github.com/muhassin-emvigo" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-          <a href="https://in.linkedin.com/in/muhassin-babu-mm" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-          <a href="mailto:muhassin.babu@emvigotech.com" aria-label="Email">Email</a>
+
+        <!-- Scene 2 -->
+        <div class="cinema__layer" data-layer="1">
+          <div class="cinema__inner">
+            <p class="hero__eyebrow">Focus</p>
+            <h2 class="cinema__headline">Agentic Workflows<br>&amp; Node.js at scale</h2>
+          </div>
         </div>
+
+        <!-- Scene 3 -->
+        <div class="cinema__layer" data-layer="2">
+          <div class="cinema__inner">
+            <p class="hero__eyebrow">11+ years · Ex-Infosys</p>
+            <h2 class="cinema__headline">Cloud-native.<br>Production-grade.</h2>
+          </div>
+        </div>
+
+        <!-- Final scene: identity -->
+        <div class="cinema__layer cinema__layer--final" data-layer="3">
+          <div class="cinema__inner">
+            <img class="hero__avatar" src="avatar.png" alt="Portrait of Muhassin Babu MM" width="120" height="120" />
+            <p class="hero__eyebrow">Hi, my name is</p>
+            <h1 class="hero__name">Muhassin Babu MM</h1>
+            <h2 class="hero__title">Technology Architect</h2>
+            <p class="hero__tagline">
+              11+ years designing and delivering scalable, cloud-native solutions —
+              with a focus on agentic workflows and Node.js. Based in Kerala, India,
+              currently at Emvigo Technologies.
+            </p>
+            <div class="hero__cta">
+              <a href="#contact" class="btn btn--primary">Get in touch</a>
+              <a href="resume.pdf" class="btn btn--ghost" target="_blank" rel="noopener">Download résumé</a>
+            </div>
+            <div class="hero__socials">
+              <a href="https://github.com/muhassin-emvigo" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+              <a href="https://in.linkedin.com/in/muhassin-babu-mm" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+              <a href="mailto:muhassin.babu@emvigotech.com" aria-label="Email">Email</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="#about" class="scroll-cue" id="cinema-cue" aria-label="Scroll to content">
+          <span>Scroll to explore</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
       </div>
-      <a href="#about" class="scroll-cue" aria-label="Scroll to content">
-        <span>Scroll to explore</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-      </a>
     </section>
 
     <!-- Tech strip -->
