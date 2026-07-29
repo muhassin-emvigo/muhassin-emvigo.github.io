@@ -1,24 +1,109 @@
-// ===== Theme toggle (persisted) =====
+// ===== Animated background (particles + light streaks) =====
 (function () {
-  const root = document.documentElement;
-  const toggle = document.getElementById("theme-toggle");
-  const icon = toggle.querySelector(".theme-toggle__icon");
+  const canvas = document.getElementById("fx");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const stored = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const initial = stored || (prefersDark ? "dark" : "light");
-  applyTheme(initial);
-
-  toggle.addEventListener("click", function () {
-    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    applyTheme(next);
-    localStorage.setItem("theme", next);
-  });
-
-  function applyTheme(theme) {
-    root.setAttribute("data-theme", theme);
-    icon.textContent = theme === "dark" ? "☀️" : "🌙";
+  let W = 0, H = 0, DPR = 1;
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   }
+  resize();
+  window.addEventListener("resize", resize);
+
+  // Particles (drifting starfield)
+  const count = Math.max(50, Math.min(150, Math.floor(W / 11)));
+  const particles = [];
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.4 + 0.3,
+      base: Math.random() * 0.45 + 0.15,
+      tw: Math.random() * 0.018 + 0.004, ph: Math.random() * 6.28,
+      vx: (Math.random() - 0.5) * 0.06, vy: (Math.random() - 0.5) * 0.06,
+    });
+  }
+
+  // Light streaks (diagonal comets)
+  const streaks = [];
+  const DIRX = -0.42, DIRY = 1; // down-left
+  const dlen = Math.hypot(DIRX, DIRY);
+  const ux = DIRX / dlen, uy = DIRY / dlen;
+  function spawnStreak() {
+    const margin = 200;
+    const x = Math.random() * (W + margin * 2) - margin;
+    const y = -margin * Math.random();
+    streaks.push({
+      x: x, y: y,
+      len: Math.random() * 160 + 90,
+      speed: Math.random() * 5 + 4,
+      life: 1,
+      tint: Math.random() < 0.4,
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // particles
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.ph += p.tw;
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x += W; else if (p.x > W) p.x -= W;
+      if (p.y < 0) p.y += H; else if (p.y > H) p.y -= H;
+      const a = p.base * (0.55 + 0.45 * Math.sin(p.ph));
+      ctx.beginPath();
+      ctx.fillStyle = "rgba(200, 230, 220, " + a.toFixed(3) + ")";
+      ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+      ctx.fill();
+    }
+
+    // streaks
+    if (!reduce) {
+      if (streaks.length < 16 && Math.random() < 0.28) spawnStreak();
+      for (let i = streaks.length - 1; i >= 0; i--) {
+        const s = streaks[i];
+        s.x += ux * s.speed; s.y += uy * s.speed;
+        const tailX = s.x - ux * s.len, tailY = s.y - uy * s.len;
+        const g = ctx.createLinearGradient(s.x, s.y, tailX, tailY);
+        const head = s.tint ? "rgba(120, 255, 210, 0.9)" : "rgba(255, 255, 255, 0.9)";
+        g.addColorStop(0, head);
+        g.addColorStop(1, "rgba(255, 255, 255, 0)");
+        ctx.strokeStyle = g;
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.stroke();
+        if (s.y - s.len > H || s.x + s.len < 0) streaks.splice(i, 1);
+      }
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  let raf = requestAnimationFrame(draw);
+})();
+
+// ===== Hero parallax =====
+(function () {
+  const inner = document.querySelector(".hero__inner");
+  if (!inner || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.addEventListener("scroll", function () {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      inner.style.transform = "translateY(" + y * 0.28 + "px)";
+      inner.style.opacity = String(Math.max(0, 1 - y / (window.innerHeight * 0.75)));
+    }
+  }, { passive: true });
 })();
 
 // ===== Mobile menu =====
