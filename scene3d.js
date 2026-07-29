@@ -17,8 +17,8 @@ if (mount) {
     const N = 2800;
     const positions = new Float32Array(N * 3);
     const colors = new Float32Array(N * 3);
-    const cInner = new THREE.Color(0x10b981);
-    const cOuter = new THREE.Color(0xa9ffe0);
+    const cInner = new THREE.Color(0x5b949f);
+    const cOuter = new THREE.Color(0xcfe0e5);
     const R = 1.35;
     const golden = Math.PI * (3 - Math.sqrt(5));
     for (let i = 0; i < N; i++) {
@@ -51,7 +51,7 @@ if (mount) {
     // ---- faint wireframe core ----
     const core = new THREE.Mesh(
       new THREE.IcosahedronGeometry(0.82, 1),
-      new THREE.MeshBasicMaterial({ color: 0x10b981, wireframe: true, transparent: true, opacity: 0.14 })
+      new THREE.MeshBasicMaterial({ color: 0x8faab2, wireframe: true, transparent: true, opacity: 0.14 })
     );
     scene.add(core);
 

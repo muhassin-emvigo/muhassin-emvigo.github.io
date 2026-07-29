@@ -62,7 +62,7 @@
       if (p.y < 0) p.y += H; else if (p.y > H) p.y -= H;
       const a = p.base * (0.55 + 0.45 * Math.sin(p.ph));
       ctx.beginPath();
-      ctx.fillStyle = "rgba(200, 230, 220, " + a.toFixed(3) + ")";
+      ctx.fillStyle = "rgba(220, 232, 236, " + a.toFixed(3) + ")";
       ctx.arc(p.x, p.y, p.r, 0, 6.2832);
       ctx.fill();
     }
@@ -75,7 +75,7 @@
         s.x += ux * s.speed; s.y += uy * s.speed;
         const tailX = s.x - ux * s.len, tailY = s.y - uy * s.len;
         const g = ctx.createLinearGradient(s.x, s.y, tailX, tailY);
-        const head = s.tint ? "rgba(120, 255, 210, 0.9)" : "rgba(255, 255, 255, 0.9)";
+        const head = s.tint ? "rgba(143, 170, 178, 0.9)" : "rgba(255, 255, 255, 0.9)";
         g.addColorStop(0, head);
         g.addColorStop(1, "rgba(255, 255, 255, 0)");
         ctx.strokeStyle = g;
