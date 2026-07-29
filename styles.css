@@ -35,6 +35,13 @@ a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
 a:hover { color: var(--text); }
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
 
+/* Lenis smooth-scroll base */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
 /* ===== Animated background canvas + overlays ===== */
 #fx {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
@@ -93,6 +100,11 @@ a:hover { color: var(--text); }
 .cinema__stage {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
   display: grid; place-items: center; text-align: center;
+  animation: heroReveal 1.3s var(--ease) both;
+}
+@keyframes heroReveal {
+  from { clip-path: circle(0% at 50% 46%); opacity: 0.15; }
+  to { clip-path: circle(150% at 50% 46%); opacity: 1; }
 }
 .cinema__canvas {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -320,7 +332,7 @@ a:hover { color: var(--text); }
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tech-strip__track, .scroll-cue svg, .hero__avatar { animation: none !important; }
+  .tech-strip__track, .scroll-cue svg, .hero__avatar, .cinema__stage { animation: none !important; }
   [data-animate] { opacity: 1 !important; transform: none !important; transition: none !important; }
   * { transition-duration: 0.001ms !important; }
 }

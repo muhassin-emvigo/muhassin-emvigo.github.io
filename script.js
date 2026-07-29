@@ -228,7 +228,36 @@
     btn.classList.toggle("is-visible", window.scrollY > 500);
   }, { passive: true });
   btn.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.__lenis) window.__lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
+// ===== Lenis smooth scroll =====
+(function () {
+  if (typeof Lenis === "undefined") return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const lenis = new Lenis({
+    duration: 1.1,
+    smoothWheel: true,
+    easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+  });
+  window.__lenis = lenis;
+
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+
+  // smooth in-page anchor navigation (accounts for sticky header)
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      const id = a.getAttribute("href");
+      if (!id || id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -70 });
+    });
   });
 })();
 
