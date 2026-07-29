@@ -18,10 +18,12 @@ in a browser or host it anywhere static files are served.
 ## 📁 Structure
 
 ```
-index.html    # Page content and sections
-styles.css    # All styling and theming (CSS variables)
-script.js     # Theme toggle, mobile menu, scroll reveal, back-to-top
-avatar.png    # Profile photo
+index.html      # Page content and sections
+styles.css      # All styling and theming (CSS variables)
+script.js       # Menu, scroll reveal, back-to-top, animated canvas background
+scene3d.js      # 3D hero particle sphere (Three.js module)
+three.module.js # Vendored Three.js library (self-contained)
+avatar.png      # Profile photo
 resume.pdf    # Downloadable résumé
 og-image.png  # Social-share preview image (Open Graph / Twitter)
 sitemap.xml   # SEO sitemap
