@@ -1,3 +1,17 @@
+// ===== Full-screen loader =====
+(function () {
+  const loader = document.getElementById("loader");
+  if (!loader) return;
+  let done = false;
+  function hide() {
+    if (done) return;
+    done = true;
+    loader.classList.add("is-done");
+  }
+  window.addEventListener("load", function () { setTimeout(hide, 400); });
+  setTimeout(hide, 4500); // safety fallback
+})();
+
 // ===== Animated background (particles + light streaks) =====
 (function () {
   const canvas = document.getElementById("fx");
@@ -158,12 +172,14 @@
 
   menuToggle.addEventListener("click", function () {
     const open = links.classList.toggle("is-open");
+    menuToggle.classList.toggle("is-open", open);
     menuToggle.setAttribute("aria-expanded", String(open));
   });
 
   links.querySelectorAll("a").forEach(function (a) {
     a.addEventListener("click", function () {
       links.classList.remove("is-open");
+      menuToggle.classList.remove("is-open");
       menuToggle.setAttribute("aria-expanded", "false");
     });
   });
