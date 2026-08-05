@@ -121,7 +121,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ===== Hero ===== */
 /* ===== Cinema (pinned scroll-scrubbed hero) ===== */
-.cinema { position: relative; height: 360vh; }
+.cinema { position: relative; height: 200vh; }
 .cinema__stage {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
   display: grid; place-items: center; text-align: center;
