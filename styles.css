@@ -288,15 +288,32 @@ main { counter-reset: sec; }
 .about__list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1rem; margin-top: 1rem; }
 .about__list li { position: relative; padding-left: 1.4rem; color: var(--text-muted); font-family: var(--mono); font-size: 0.88rem; }
 .about__list li::before { content: "\25B9"; position: absolute; left: 0; color: var(--accent); }
-.about__stats { display: grid; gap: 1rem; }
-.stat {
-  background: var(--panel); border: 1px solid var(--panel-border); border-radius: var(--radius);
-  padding: 1.5rem; text-align: center; backdrop-filter: blur(6px);
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+.about__stats {
+  display: flex; flex-direction: column; align-self: start; overflow: hidden;
+  border: 1px solid var(--panel-border); border-radius: var(--radius);
+  background: var(--panel); backdrop-filter: blur(6px);
 }
-.stat:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 40px var(--accent-soft); }
-.stat__num { display: block; font-size: 2.1rem; font-weight: 800; color: var(--accent-2); text-shadow: 0 0 22px rgba(91,148,159,0.4); }
-.stat__label { color: var(--text-muted); font-size: 0.85rem; }
+.stat {
+  position: relative; display: grid; grid-template-columns: 4.8rem 1fr; align-items: center;
+  gap: 1.1rem; padding: 1.4rem 1.6rem; text-align: left;
+  border-bottom: 1px solid var(--panel-border); transition: background 0.3s var(--ease);
+}
+.stat:last-child { border-bottom: none; }
+.stat::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 0.35s var(--ease);
+}
+.stat:hover { background: var(--accent-soft); }
+.stat:hover::before { transform: scaleY(1); }
+.stat__num {
+  font-size: 2.3rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; justify-self: start;
+  background: linear-gradient(180deg, #ffffff 30%, var(--accent) 130%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+}
+.stat__label {
+  font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--text-muted); line-height: 1.4;
+}
 
 /* ===== Timeline ===== */
 .timeline { position: relative; padding-left: 1.5rem; }
@@ -467,18 +484,18 @@ main { counter-reset: sec; }
 .back-to-top:hover { transform: translateY(-3px); }
 
 /* ===== Futuristic card treatment (spotlight + hairline) ===== */
-.stat, .skills__group, .project, .timeline__content {
+.skills__group, .project, .timeline__content {
   position: relative; isolation: isolate; overflow: hidden;
 }
 /* cursor-tracking spotlight */
-.stat::after, .skills__group::after, .project::after, .timeline__content::after {
+.skills__group::after, .project::after, .timeline__content::after {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
   pointer-events: none; opacity: 0; transition: opacity 0.4s var(--ease);
   background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(143, 170, 178, 0.16), transparent 62%);
 }
-.stat:hover::after, .skills__group:hover::after, .project:hover::after, .timeline__content:hover::after { opacity: 1; }
+.skills__group:hover::after, .project:hover::after, .timeline__content:hover::after { opacity: 1; }
 /* corner-bracket HUD frame (masked inset border shows only the 4 corners) */
-.stat::before, .skills__group::before, .project::before, .timeline__content::before {
+.skills__group::before, .project::before, .timeline__content::before {
   content: ""; position: absolute; inset: 9px; z-index: 1; pointer-events: none;
   border: 1px solid var(--accent);
   -webkit-mask:
@@ -493,7 +510,7 @@ main { counter-reset: sec; }
     linear-gradient(#000 0 0) bottom right / 16px 16px no-repeat;
   opacity: 0.22; transition: opacity 0.4s var(--ease);
 }
-.stat:hover::before, .skills__group:hover::before, .project:hover::before, .timeline__content:hover::before { opacity: 0.7; }
+.skills__group:hover::before, .project:hover::before, .timeline__content:hover::before { opacity: 0.7; }
 
 /* project index watermark + corner tick */
 .projects { counter-reset: proj; }
