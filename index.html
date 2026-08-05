@@ -26,6 +26,42 @@
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%235b949f'/><text x='32' y='45' font-size='32' font-family='Arial,Helvetica,sans-serif' font-weight='bold' fill='white' text-anchor='middle'>MB</text></svg>" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Muhassin MM" />
+
+  <!-- Structured data (Person) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Muhassin Babu MM",
+    "jobTitle": "Technology Architect",
+    "url": "https://muhassin-emvigo.github.io/",
+    "image": "https://muhassin-emvigo.github.io/avatar.png",
+    "email": "mailto:muhassin.babu@emvigotech.com",
+    "description": "Technology Architect with 11+ years building scalable, cloud-native solutions with Node.js, agentic workflows, microservices, and serverless.",
+    "worksFor": { "@type": "Organization", "name": "Emvigo Technologies" },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Indian Institute of Information Technology & Management – Kerala (IIITM-K)"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Kerala",
+      "addressCountry": "IN"
+    },
+    "knowsAbout": ["Node.js", "Agentic Workflows", "Microservices", "AWS Lambda", "Serverless", "Software Architecture", "WebRTC", "PostgreSQL"],
+    "sameAs": [
+      "https://github.com/muhassin-emvigo",
+      "https://in.linkedin.com/in/muhassin-babu-mm"
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="loader" id="loader" role="status" aria-label="Loading">
@@ -55,6 +91,16 @@
       </button>
     </div>
   </header>
+
+  <!-- Side HUD section nav -->
+  <nav class="hud-nav" id="hud-nav" aria-label="Section navigation">
+    <a href="#about" data-target="about"><span class="hud-nav__dot"></span><span class="hud-nav__lbl">About</span></a>
+    <a href="#experience" data-target="experience"><span class="hud-nav__dot"></span><span class="hud-nav__lbl">Experience</span></a>
+    <a href="#skills" data-target="skills"><span class="hud-nav__dot"></span><span class="hud-nav__lbl">Skills</span></a>
+    <a href="#projects" data-target="projects"><span class="hud-nav__dot"></span><span class="hud-nav__lbl">Projects</span></a>
+    <a href="#education" data-target="education"><span class="hud-nav__dot"></span><span class="hud-nav__lbl">Education</span></a>
+    <a href="#contact" data-target="contact"><span class="hud-nav__dot"></span><span class="hud-nav__lbl">Contact</span></a>
+  </nav>
 
   <main>
     <!-- Hero: pinned scroll-scrubbed cinematic sequence -->
@@ -437,6 +483,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <p>Built by Muhassin Babu MM</p>
+      <p class="footer__clock" id="ist-clock" aria-label="Local time in Kerala"></p>
       <div class="footer__socials">
         <a href="https://github.com/muhassin-emvigo" target="_blank" rel="noopener">GitHub</a>
         <a href="https://in.linkedin.com/in/muhassin-babu-mm" target="_blank" rel="noopener">LinkedIn</a>

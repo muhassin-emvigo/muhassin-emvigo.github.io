@@ -348,3 +348,76 @@
   );
   items.forEach(function (c) { observer.observe(c); });
 })();
+
+// ===== 3D tilt on project cards =====
+(function () {
+  if (window.matchMedia("(hover: none)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".project").forEach(function (card) {
+    card.addEventListener("pointermove", function (e) {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform =
+        "perspective(800px) rotateX(" + (-py * 6).toFixed(2) + "deg) rotateY(" +
+        (px * 8).toFixed(2) + "deg) translateY(-6px)";
+    });
+    card.addEventListener("pointerleave", function () { card.style.transform = ""; });
+  });
+})();
+
+// ===== Side HUD section nav =====
+(function () {
+  const nav = document.getElementById("hud-nav");
+  if (!nav) return;
+  const links = Array.prototype.slice.call(nav.querySelectorAll("a"));
+  const map = {};
+  links.forEach(function (a) { map[a.getAttribute("data-target")] = a; });
+
+  const hero = document.getElementById("hero");
+  window.addEventListener("scroll", function () {
+    const past = window.scrollY > (hero ? hero.offsetHeight * 0.9 : window.innerHeight);
+    nav.classList.toggle("is-visible", past);
+  }, { passive: true });
+
+  if ("IntersectionObserver" in window) {
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove("is-active"); });
+          const a = map[e.target.id];
+          if (a) a.classList.add("is-active");
+        }
+      });
+    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+    ["about", "experience", "skills", "projects", "education", "contact"].forEach(function (id) {
+      const s = document.getElementById(id);
+      if (s) obs.observe(s);
+    });
+  }
+})();
+
+// ===== Kerala (IST) clock =====
+(function () {
+  const el = document.getElementById("ist-clock");
+  if (!el) return;
+  function tick() {
+    try {
+      const t = new Date().toLocaleTimeString("en-GB", {
+        timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit",
+      });
+      el.innerHTML = "🕒 <b>" + t + " IST</b> · Kochi, Kerala";
+    } catch (e) { el.textContent = ""; }
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+
+// ===== Service worker (PWA / offline) =====
+(function () {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    });
+  }
+})();
