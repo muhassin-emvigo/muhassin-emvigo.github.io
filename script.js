@@ -1,3 +1,16 @@
+// ===== Card cursor spotlight =====
+(function () {
+  if (window.matchMedia("(hover: none)").matches) return;
+  const cards = document.querySelectorAll(".stat, .skills__group, .project, .timeline__content");
+  cards.forEach(function (card) {
+    card.addEventListener("pointermove", function (e) {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      card.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+})();
+
 // ===== Full-screen loader =====
 (function () {
   const loader = document.getElementById("loader");
