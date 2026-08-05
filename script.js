@@ -413,6 +413,133 @@
   setInterval(tick, 30000);
 })();
 
+// ===== Custom cursor ring =====
+(function () {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ring = document.getElementById("cursor-ring");
+  if (!ring) return;
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my, on = false;
+  window.addEventListener("pointermove", function (e) {
+    mx = e.clientX; my = e.clientY;
+    if (!on) { on = true; ring.classList.add("is-on"); }
+  }, { passive: true });
+  window.addEventListener("pointerdown", function () { ring.classList.add("is-active"); });
+  window.addEventListener("pointerup", function () { ring.classList.remove("is-active"); });
+  const sel = "a, button, .btn, .project, .stat, .skills__group, .timeline__content, .hud-nav a, input, .nav__brand, .cmdk-fab";
+  document.addEventListener("pointerover", function (e) { if (e.target.closest(sel)) ring.classList.add("is-active"); });
+  document.addEventListener("pointerout", function (e) { if (e.target.closest(sel)) ring.classList.remove("is-active"); });
+  (function loop() {
+    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+    ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+    requestAnimationFrame(loop);
+  })();
+})();
+
+// ===== Text-scramble section titles =====
+(function () {
+  const titles = document.querySelectorAll(".ttl");
+  if (!titles.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%!<>/*0123456789";
+  function scramble(el) {
+    const final = el.getAttribute("data-text") || el.textContent;
+    el.setAttribute("data-text", final);
+    const start = performance.now();
+    (function step(now) {
+      const p = Math.min(1, (now - start) / 620);
+      const reveal = Math.floor(p * final.length);
+      let out = "";
+      for (let i = 0; i < final.length; i++) {
+        if (i < reveal || final[i] === " ") out += final[i];
+        else out += chars[Math.floor(Math.random() * chars.length)];
+      }
+      el.textContent = out;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = final;
+    })(start);
+  }
+  const obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { scramble(e.target); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+  titles.forEach(function (t) { obs.observe(t); });
+})();
+
+// ===== Command palette (⌘K) =====
+(function () {
+  const root = document.getElementById("cmdk");
+  const input = document.getElementById("cmdk-input");
+  const list = document.getElementById("cmdk-list");
+  const fab = document.getElementById("cmdk-fab");
+  if (!root || !input || !list) return;
+
+  const commands = [
+    { label: "About", ic: "▹", type: "section", target: "#about" },
+    { label: "Experience", ic: "▹", type: "section", target: "#experience" },
+    { label: "Skills", ic: "▹", type: "section", target: "#skills" },
+    { label: "Projects", ic: "▹", type: "section", target: "#projects" },
+    { label: "Education", ic: "▹", type: "section", target: "#education" },
+    { label: "Contact", ic: "▹", type: "section", target: "#contact" },
+    { label: "Download résumé", ic: "⤓", type: "link", target: "resume.pdf", ext: true },
+    { label: "GitHub", ic: "↗", type: "link", target: "https://github.com/muhassin-emvigo", ext: true },
+    { label: "LinkedIn", ic: "↗", type: "link", target: "https://in.linkedin.com/in/muhassin-babu-mm", ext: true },
+    { label: "Email me", ic: "✉", type: "link", target: "mailto:muhassin.babu@emvigotech.com" },
+    { label: "Print / save as PDF", ic: "⎙", type: "print" }
+  ];
+  let filtered = commands.slice(), sel = 0;
+
+  function render() {
+    if (!filtered.length) { list.innerHTML = '<li class="cmdk__empty">No matches</li>'; return; }
+    list.innerHTML = filtered.map(function (c, i) {
+      return '<li class="cmdk__item' + (i === sel ? " is-sel" : "") + '" role="option" data-i="' + i + '">' +
+        '<span class="ic">' + c.ic + "</span>" + c.label +
+        (c.ext ? '<span class="arrow">↗</span>' : "") + "</li>";
+    }).join("");
+  }
+  function open() {
+    root.classList.add("is-open"); root.setAttribute("aria-hidden", "false");
+    input.value = ""; filtered = commands.slice(); sel = 0; render();
+    setTimeout(function () { input.focus(); }, 30);
+  }
+  function close() { root.classList.remove("is-open"); root.setAttribute("aria-hidden", "true"); }
+  function run(c) {
+    if (!c) return;
+    close();
+    if (c.type === "section") {
+      const el = document.querySelector(c.target);
+      if (el) { if (window.__lenis) window.__lenis.scrollTo(el, { offset: -70 }); else el.scrollIntoView({ behavior: "smooth" }); }
+    } else if (c.type === "link") {
+      window.open(c.target, c.ext ? "_blank" : "_self");
+    } else if (c.type === "print") {
+      window.print();
+    }
+  }
+
+  function norm(s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+  input.addEventListener("input", function () {
+    const q = norm(input.value.trim());
+    filtered = commands.filter(function (c) { return norm(c.label).indexOf(q) !== -1; });
+    sel = 0; render();
+  });
+  list.addEventListener("click", function (e) {
+    const li = e.target.closest(".cmdk__item"); if (!li) return;
+    run(filtered[parseInt(li.getAttribute("data-i"), 10)]);
+  });
+  root.addEventListener("click", function (e) { if (e.target.hasAttribute("data-cmdk-close")) close(); });
+  if (fab) fab.addEventListener("click", open);
+
+  document.addEventListener("keydown", function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); root.classList.contains("is-open") ? close() : open(); return; }
+    if (!root.classList.contains("is-open")) return;
+    if (e.key === "Escape") { e.preventDefault(); close(); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sel + 1, filtered.length - 1); render(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); }
+    else if (e.key === "Enter") { e.preventDefault(); run(filtered[sel]); }
+  });
+})();
+
 // ===== Service worker (PWA / offline) =====
 (function () {
   if ("serviceWorker" in navigator) {
