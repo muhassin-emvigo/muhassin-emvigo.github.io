@@ -305,16 +305,38 @@ main { counter-reset: sec; }
   background: linear-gradient(180deg, var(--accent), var(--accent-deep) 45%, transparent);
   box-shadow: 0 0 12px rgba(91, 148, 159, 0.5);
 }
+/* energy pulse travelling down the rail */
+.timeline::after {
+  content: ""; position: absolute; left: 3px; width: 6px; height: 46px; top: 0;
+  border-radius: 6px; filter: blur(1px); pointer-events: none;
+  background: linear-gradient(180deg, transparent, var(--accent-2), transparent);
+  animation: flowDown 3.4s var(--ease) infinite;
+}
+@keyframes flowDown {
+  0% { top: -8%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
 .timeline__item { position: relative; padding-bottom: 2.5rem; }
 .timeline__item:last-child { padding-bottom: 0; }
+/* ringed node with a bright core */
 .timeline__marker {
-  position: absolute; left: -1.5rem; top: 6px; width: 12px; height: 12px;
-  background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px var(--accent-soft), 0 0 16px var(--accent);
+  position: absolute; left: -1.6rem; top: 5px; width: 15px; height: 15px; border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-2) 0 2.5px, rgba(5, 7, 11, 0.55) 3.5px);
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft), 0 0 14px var(--accent);
+}
+/* horizontal connector branching from node to card */
+.timeline__marker::before {
+  content: ""; position: absolute; left: 13px; top: 50%; width: 15px; height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
 }
 .timeline__marker::after {
-  content: ""; position: absolute; inset: -3px; border-radius: 50%;
+  content: ""; position: absolute; inset: -4px; border-radius: 50%;
   border: 1px solid var(--accent); animation: pulseRing 2.6s ease-out infinite;
 }
+.timeline__item:hover .timeline__marker { box-shadow: 0 0 0 5px var(--accent-soft), 0 0 20px var(--accent); }
 @keyframes pulseRing {
   0% { transform: scale(1); opacity: 0.7; }
   100% { transform: scale(2.4); opacity: 0; }
@@ -552,7 +574,7 @@ main { counter-reset: sec; }
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .tech-strip__track, .scroll-cue svg, .hero__avatar, .cinema__stage, .timeline__marker::after, .section__title::after, .cmdk__panel { animation: none !important; }
+  .tech-strip__track, .scroll-cue svg, .hero__avatar, .cinema__stage, .timeline__marker::after, .timeline::after, .section__title::after, .cmdk__panel { animation: none !important; }
   [data-animate] { opacity: 1 !important; transform: none !important; transition: none !important; }
   * { transition-duration: 0.001ms !important; }
 }
