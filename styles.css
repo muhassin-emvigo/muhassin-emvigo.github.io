@@ -22,7 +22,8 @@
 
 /* ===== Base ===== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+.section, [id] { scroll-margin-top: 80px; }
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -614,6 +615,7 @@ main { counter-reset: sec; }
 }
 .cmdk-fab span { font-size: 0.95rem; }
 .cmdk-fab:hover { color: var(--accent-2); border-color: var(--accent); transform: translateY(-2px); }
+@media (hover: none), (pointer: coarse) { .cmdk-fab { display: none; } }
 
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
@@ -654,6 +656,7 @@ main { counter-reset: sec; }
   .menu-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .about__stats { grid-template-columns: 1fr; }
   .hero__socials { flex-wrap: wrap; gap: 1rem; }
+  .cmdk-fab { display: none; }
 }
 
 /* ===== Print / PDF résumé ===== */
