@@ -429,7 +429,7 @@ main { counter-reset: sec; }
 }
 .stat:hover::after, .skills__group:hover::after, .project:hover::after, .timeline__content:hover::after { opacity: 1; }
 /* corner-bracket HUD frame (masked inset border shows only the 4 corners) */
-.stat::before, .skills__group::before, .project::before {
+.stat::before, .skills__group::before, .project::before, .timeline__content::before {
   content: ""; position: absolute; inset: 9px; z-index: 1; pointer-events: none;
   border: 1px solid var(--accent);
   -webkit-mask:
@@ -444,7 +444,7 @@ main { counter-reset: sec; }
     linear-gradient(#000 0 0) bottom right / 16px 16px no-repeat;
   opacity: 0.22; transition: opacity 0.4s var(--ease);
 }
-.stat:hover::before, .skills__group:hover::before, .project:hover::before { opacity: 0.7; }
+.stat:hover::before, .skills__group:hover::before, .project:hover::before, .timeline__content:hover::before { opacity: 0.7; }
 
 /* project index watermark + corner tick */
 .projects { counter-reset: proj; }
